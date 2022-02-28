@@ -1,21 +1,15 @@
 package com.artyom.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "seasons")
-public class Season implements Serializable {
+public class Season {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
@@ -30,12 +24,15 @@ public class Season implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "season")
     private List<Match> matches;
 
-    public void addMatchToSeason(Match match){
-        if (matches == null){
+    public void addMatchToSeason(Match match) {
+        if (matches == null) {
             matches = new ArrayList<>();
         }
         matches.add(match);
         match.setSeason(this);
+    }
+
+    public Season() {
     }
 
     public Season(String seasonName, LocalDate dateTo, LocalDate dateFrom) {
@@ -82,8 +79,5 @@ public class Season implements Serializable {
 
     public void setMatches(List<Match> matches) {
         this.matches = matches;
-    }
-
-    public Season() {
     }
 }

@@ -1,22 +1,15 @@
 package com.artyom.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "teams")
-public class Team implements Serializable {
+public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column
@@ -24,6 +17,9 @@ public class Team implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "homeTeam")
     private List<Match> homeTeamMatches;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guestTeam")
+    private List<Match> guestTeamMatches;
 
     public void addMatchToHomeTeam(Match match){
         if (homeTeamMatches == null){
@@ -33,15 +29,19 @@ public class Team implements Serializable {
         match.setHomeTeam(this);
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guestTeam")
-    private List<Match> guestTeamMatches;
-
     public void addMatchToGuestTeam(Match match){
         if (guestTeamMatches == null){
             guestTeamMatches = new ArrayList<>();
         }
         guestTeamMatches.add(match);
         match.setHomeTeam(this);
+    }
+
+    public Team(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public Team() {
     }
 
     public Long getId() {
@@ -76,10 +76,4 @@ public class Team implements Serializable {
         this.guestTeamMatches = guestTeamMatches;
     }
 
-    public Team(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public Team() {
-    }
 }

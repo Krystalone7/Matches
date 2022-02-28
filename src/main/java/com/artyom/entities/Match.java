@@ -1,14 +1,13 @@
 package com.artyom.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "matches")
-public class Match implements Serializable {
+public class Match{
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -27,10 +26,10 @@ public class Match implements Serializable {
     private Team guestTeam;
 
     @Column
-    private int homeTeamGoals;
+    private Integer homeTeamGoals;
 
     @Column
-    private int guestTeamGoals;
+    private Integer guestTeamGoals;
 
     public Match(LocalDate date, int homeTeamGoals, int guestTeamGoals) {
         this.date = date;
