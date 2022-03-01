@@ -1,11 +1,16 @@
 package com.artyom.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "teams")
+@Getter
+@Setter
 public class Team {
 
     @Id
@@ -21,7 +26,7 @@ public class Team {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "guestTeam")
     private List<Match> guestTeamMatches;
 
-    public void addMatchToHomeTeam(Match match){
+    /*public void addMatchToHomeTeam(Match match){
         if (homeTeamMatches == null){
             homeTeamMatches = new ArrayList<>();
         }
@@ -35,7 +40,7 @@ public class Team {
         }
         guestTeamMatches.add(match);
         match.setHomeTeam(this);
-    }
+    }*/
 
     public Team(String teamName) {
         this.teamName = teamName;
@@ -43,37 +48,4 @@ public class Team {
 
     public Team() {
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public List<Match> getHomeTeamMatches() {
-        return homeTeamMatches;
-    }
-
-    public void setHomeTeamMatches(List<Match> homeTeamMatches) {
-        this.homeTeamMatches = homeTeamMatches;
-    }
-
-    public List<Match> getGuestTeamMatches() {
-        return guestTeamMatches;
-    }
-
-    public void setGuestTeamMatches(List<Match> guestTeamMatches) {
-        this.guestTeamMatches = guestTeamMatches;
-    }
-
 }
