@@ -30,14 +30,6 @@ public class Season {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "season")
     private List<Match> matches;
 
-    /*public void addMatchToSeason(Match match) {
-        if (matches == null) {
-            matches = new ArrayList<>();
-        }
-        matches.add(match);
-        match.setSeason(this);
-    }*/
-
     public Season() {
     }
 
