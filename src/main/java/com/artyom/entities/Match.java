@@ -42,6 +42,15 @@ public class Match{
         this.guestTeamGoals = guestTeamGoals;
     }
 
+    public Match(Season season, LocalDate date, Team homeTeam, Team guestTeam, Integer homeTeamGoals, Integer guestTeamGoals) {
+        this.season = season;
+        this.date = date;
+        this.homeTeam = homeTeam;
+        this.guestTeam = guestTeam;
+        this.homeTeamGoals = homeTeamGoals;
+        this.guestTeamGoals = guestTeamGoals;
+    }
+
     public Match() {
     }
 }
