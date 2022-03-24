@@ -77,7 +77,17 @@ public class MatchServiceImpl implements MatchService{
     }
 
     @Override
-    public void registerMatch(Match match){
-        matchRepository.saveAndFlush(match);
+    public Match registerMatch(Match match){
+        return matchRepository.saveAndFlush(match);
+    }
+
+    @Override
+    public Match getById(Long id) {
+        return matchRepository.getMatchById(id);
+    }
+
+    @Override
+    public List<Match> getAll() {
+        return matchRepository.findAll();
     }
 }

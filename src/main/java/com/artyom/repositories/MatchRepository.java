@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface MatchRepository extends JpaRepository<Match, Long> {
     List<Match> getMatchesBySeason(Season season);
+    Match getMatchById(Long id);
+    List<Match> findAll();
 }
