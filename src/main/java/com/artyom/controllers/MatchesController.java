@@ -55,9 +55,9 @@ public class MatchesController {
     public Match add(@RequestBody MatchCreationDto matchDto){
 
         Match match = mapper.toMatch(matchDto);
-        match.setHomeTeam(teamService.getTeamById(matchDto.getHomeTeamId()));
-        match.setGuestTeam(teamService.getTeamById(matchDto.getGuestTeamId()));
-        match.setSeason(seasonService.getSeasonById(matchDto.getSeasonId()));
+        match.setHomeTeam(teamService.getTeamById(Long.valueOf(matchDto.getHomeTeamId())));
+        match.setGuestTeam(teamService.getTeamById(Long.valueOf(matchDto.getGuestTeamId())));
+        match.setSeason(seasonService.getSeasonById(Long.valueOf(matchDto.getSeasonId())));
 
         matchService.registerMatch(match);
         return match;

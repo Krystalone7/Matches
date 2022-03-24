@@ -9,10 +9,10 @@ import java.time.LocalDate;
 @Setter
 public class MatchCreationDto {
 
-    private Long seasonId;
-    private LocalDate date;
-    private Long homeTeamId;
-    private Long guestTeamId;
+    private String seasonId;
+    private String date;
+    private String homeTeamId;
+    private String guestTeamId;
     private int homeTeamGoals;
     private int guestTeamGoals;
 
