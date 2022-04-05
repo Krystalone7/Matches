@@ -1,6 +1,5 @@
 package com.artyom.entities;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +27,7 @@ public class Season {
     private LocalDate dateFrom;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "season")
-    private List<Match> matches;
+    private List<Match> matches = new ArrayList<>();
 
     public Season() {
     }

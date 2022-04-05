@@ -8,12 +8,12 @@ import lombok.Setter;
 @Setter
 public class Position {
 
-    private Team team;
+    private TeamDto teamDto;
     private int score = 0;
     private int gamesCount = 0;
 
-    public Position(Team team) {
-        this.team = team;
+    public Position(TeamDto teamDto) {
+        this.teamDto = teamDto;
     }
 
     public void updateScore(int points){

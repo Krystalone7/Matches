@@ -1,6 +1,7 @@
 package com.artyom.services;
 
 import com.artyom.dto.Position;
+import com.artyom.dto.TeamMapper;
 import com.artyom.dto.TournamentTable;
 import com.artyom.entities.Match;
 import com.artyom.entities.Season;
@@ -18,15 +19,17 @@ import java.util.stream.Collectors;
 public class MatchServiceImpl implements MatchService{
 
     private final MatchRepository matchRepository;
+    private final TeamMapper teamMapper;
 
     @Autowired
-    public MatchServiceImpl(MatchRepository matchRepository) {
+    public MatchServiceImpl(MatchRepository matchRepository, TeamMapper teamMapper) {
         this.matchRepository = matchRepository;
+        this.teamMapper = teamMapper;
     }
 
     @Override
-    public TournamentTable getTournamentTable(Season season) {
-        List<Match> matches = matchRepository.getMatchesBySeason(season);
+    public TournamentTable getTournamentTable(Long id) {
+        List<Match> matches = matchRepository.getMatchesBySeasonId(id);
         Set<Team> teams = new HashSet<>();
         TournamentTable tournamentTable = new TournamentTable();
         for (Match match: matches){
@@ -35,27 +38,29 @@ public class MatchServiceImpl implements MatchService{
             //Если ранее комнада не встречалась
             if (!teams.contains(match.getHomeTeam())){
                 teams.add(match.getHomeTeam());
-                positionHome = new Position(match.getHomeTeam());
+                positionHome = new Position(teamMapper.teamToDto(match.getHomeTeam()));
                 tournamentTable.addPositionToTable(positionHome);
             }
             //Если встречалась ищем эту позицию
             else{
                 List<Position> positions= tournamentTable.getTable().stream()
-                        .filter(position -> position.getTeam().equals(match.getHomeTeam()))
+                        .filter(position -> position.getTeamDto().getTeamName().equals(match.getHomeTeam().getTeamName()))
                         .collect(Collectors.toList());
+                System.out.println(positions);
                 positionHome = positions.get(0);
             }
 
             Position positionGuest;
-            if (!teams.contains(match.getHomeTeam())){
-                teams.add(match.getHomeTeam());
-                positionGuest = new Position(match.getHomeTeam());
+            if (!teams.contains(match.getGuestTeam())){
+                teams.add(match.getGuestTeam());
+                positionGuest = new Position(teamMapper.teamToDto(match.getGuestTeam()));
                 tournamentTable.addPositionToTable(positionGuest);
             }
             else{
                 List<Position> positions = tournamentTable.getTable().stream()
-                        .filter(position -> position.getTeam().equals(match.getGuestTeam()))
+                        .filter(position -> position.getTeamDto().getTeamName().equals(match.getGuestTeam().getTeamName()))
                         .collect(Collectors.toList());
+                System.out.println(positions);
                 positionGuest = positions.get(0);
             }
             positionHome.incGamesCount();
