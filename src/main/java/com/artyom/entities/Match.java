@@ -2,9 +2,14 @@ package com.artyom.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import org.hibernate.annotations.CascadeType;
+
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 
 @Entity
 @Setter
@@ -15,18 +20,21 @@ public class Match{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
+    @Cascade(SAVE_UPDATE)
     @JoinColumn(name = "season_id")
     private Season season;
 
     @Column
     private LocalDate date;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
+    @Cascade(SAVE_UPDATE)
     @JoinColumn(name = "home_team_id")
     private Team homeTeam;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
+    @Cascade(SAVE_UPDATE)
     @JoinColumn(name = "guest_team_id")
     private Team guestTeam;
 

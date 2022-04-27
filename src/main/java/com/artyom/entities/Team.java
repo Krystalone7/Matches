@@ -21,10 +21,10 @@ public class Team {
     private String teamName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "homeTeam")
-    private List<Match> homeTeamMatches;
+    private List<Match> homeTeamMatches = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "guestTeam")
-    private List<Match> guestTeamMatches;
+    private List<Match> guestTeamMatches = new ArrayList<>();
 
     /*public void addMatchToHomeTeam(Match match){
         if (homeTeamMatches == null){

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MatchService {
     Match registerMatch(Match match);
-    TournamentTable getTournamentTable(Season season);
+    TournamentTable getTournamentTable(Long id);
     Match getById(Long id);
     List<Match> getAll();
 }
