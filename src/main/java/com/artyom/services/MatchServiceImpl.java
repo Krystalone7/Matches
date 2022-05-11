@@ -4,12 +4,10 @@ import com.artyom.dto.Position;
 import com.artyom.dto.TeamMapper;
 import com.artyom.dto.TournamentTable;
 import com.artyom.entities.Match;
-import com.artyom.entities.Season;
 import com.artyom.entities.Team;
 import com.artyom.repositories.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -77,6 +75,10 @@ public class MatchServiceImpl implements MatchService{
             }
 
 
+        }
+        for (Position position :
+                tournamentTable.getTable()){
+            System.out.println(position.getScore());
         }
         return tournamentTable;
     }
